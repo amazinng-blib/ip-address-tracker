@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { Marker, Popup, useMap } from 'react-leaflet';
 import icon from './icon';
 
 const Markerposition = ({ address }) => {
   const map = useMap();
-  const position = [address.location.lat, address.location.lng];
-  console.log({ mark: position });
+  const position = useMemo(() => {
+    return [address.location.lat, address.location.lng];
+  }, [address.location.lat, address.location.lng]);
 
   useEffect(() => {
     map.flyTo(position, 13, {
