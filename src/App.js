@@ -39,10 +39,12 @@ function App() {
         `https://geo.ipify.org/api/v2/country,city?apiKey=${
           process.env.REACT_APP_API_KEY
         }&${
-          checkIpAddress.test(ipAddress)
-            ? `ipAddress=${ipAddress}`
-            : checkDomain.test(ipAddress)
+          // checkIpAddress.test(ipAddress)
+          // ? `ipAddress=${ipAddress}`
+          checkDomain.test(ipAddress)
             ? `domain=${ipAddress}`
+            : ipAddress
+            ? `ipAddress=${ipAddress}`
             : ''
         }`
       );
