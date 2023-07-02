@@ -6,18 +6,10 @@ import 'leaflet/dist/leaflet.css';
 import arrow from './images/icon-arrow.svg';
 import background from './images/pattern-bg-desktop.png';
 import Markerposition from './Markerposition';
-import axios from 'axios';
 
 function App() {
   const [address, setAddress] = useState(null);
   const [ipAddress, setIpAddress] = useState('');
-
-  const time_zone = new Date(address?.time_zone?.current_time)
-    .toTimeString()
-    .split(' ')[0];
-
-  const day = new Date(address?.time_zone?.current_time).toDateString();
-  console.log({ time: time_zone });
 
   //https://api.ipgeolocation.io/ipgeo?apiKey=d75b3f896ce14e8c90cc9d409225f147&ip=8.8.8.8&fields=city&output=xml
   //https://api.ipgeolocation.io/ipgeo?apiKey=d75b3f896ce14e8c90cc9d409225f147&ip=8.8.8.8&fields=&output=xml
@@ -28,6 +20,18 @@ function App() {
     /^(([0-9]|[1-9]|[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9]|[0-9]|[1[0-9]{2}|2[0-4][0-9]|25[0-5])$/gi;
   const checkDomain =
     /^[a-zA-Z0-9][a-zA-Z0-9]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+/;
+
+  const time_zone = new Date(address?.time_zone?.current_time)
+    .toTimeString()
+    .split(' ')[0];
+
+  const day = new Date(address?.time_zone?.current_time).toDateString();
+
+  // Check ip
+  // const checkValidIpAddress = checkIpAddress.test(address?.ip)
+  //   ? address?.ip
+  //   : address?.country_capital;
+  // console.log({ ch: checkValidIpAddress });
 
   // useEffect(() => {
   //   try {
@@ -51,8 +55,10 @@ function App() {
   const getLocationData = async () => {
     try {
       const res = await fetch(
-        `https://api.ipgeolocation.io/ipgeo?apiKey=d75b3f896ce14e8c90cc9d409225f147&ip=${
-          checkIpAddress.test(ipAddress) ? ipAddress : '192.212.174.101'
+        `https://api.ipgeolocation.io/ipgeo?apiKey=d75b3f896ce14e8c90cc9d409225f147&${
+          checkIpAddress.test(ipAddress)
+            ? `ip=${ipAddress}`
+            : `ip=192.212.174.101`
         }&fields=&output=json`
       );
       const data = await res.json();
@@ -153,7 +159,7 @@ function App() {
                   <img src={address?.country_flag} width={30} height={30} />
                 </h2>
                 <p className="font-semibold text-slate-900 text-lg md:text-xl lg:text-2xl">
-                  {address?.state_prov}, {address?.country_name}
+                  {address?.city}, {address?.country_name}
                 </p>
               </div>
               <div className="lg:border-r lg:border-slate-400">
