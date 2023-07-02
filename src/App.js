@@ -141,7 +141,7 @@ function App() {
                 </p>
               </div>
               <div className="lg:border-r lg:border-slate-400">
-                <h2 className="uppercase text-sm font-bold text-slate-400 tracking-wider mb-3 flex items-center gap-2">
+                <h2 className="uppercase text-sm font-bold text-slate-400 tracking-wider mb-3 flex items-center gap-2 justify-center">
                   Location{' '}
                   <img src={address?.country_flag} width={30} height={30} />
                 </h2>
