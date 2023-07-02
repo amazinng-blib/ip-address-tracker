@@ -5,8 +5,9 @@ import icon from './icon';
 const Markerposition = ({ address }) => {
   const map = useMap();
   const position = useMemo(() => {
-    return [address.location.lat, address.location.lng];
-  }, [address.location.lat, address.location.lng]);
+    return [address?.latitude, address?.longitude];
+  }, [address?.latitude, address?.longitude]);
+  console.log(position);
 
   useEffect(() => {
     map.flyTo(position, 13, {
