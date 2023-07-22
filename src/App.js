@@ -74,6 +74,12 @@ function App() {
     getLocationData();
   }, []);
 
+  useEffect(() => {
+    if (ipAddress === '0.0.0.0') {
+      setIpAddress('192.212.174.101');
+    }
+  }, [ipAddress]);
+
   // async function getEnteredIpaddress() {
   //   try {
   //     const res = await fetch(
